@@ -22,7 +22,7 @@ void main(){
 		flag=0;
 		fscanf(fp3,"%s%s",code,mnemonic);
 		while(strcmp(code,"END")!=0){
-			if(strcmp(opcode,code)==0) && (strcmp(mnemonic,"*"))!=0){
+			if( (strcmp(opcode,code)==0) && (strcmp(mnemonic,"*")!=0) ){
 				flag=1;
 				break;
 			}
@@ -33,24 +33,37 @@ void main(){
 			rewind(fp4);
 			while(!feof(fp4)){
 				fscanf(fp4,"%s%d",symbol,&loc);
-				if(strcmp(symbol.operand)==0)
+				if(strcmp(symbol,operand)==0)
 				{
 					flag1=1;
 					break;
 				}
 			}
-			if(flag1=1){
+			if(flag1==1){
 				sprintf(add,"%d",loc);
 				strcpy(objectcode,strcat(mnemonic,add));
 			}
 		}
 		else if(strcmp(opcode,"BYTE")==0 || strcmp(opcode,"WORD")==0){
-			if((operand[0]=='C' || (operand[0]=='X')){
+			if((operand[0]=='C') || (operand[0]=='X')){
 				character=operand[2];
 				sprintf(add,"%d",character);
 				strcpy(objectcode,add);
 			}
+			else{
+				strcpy(objectcode,add);
+			}
 		}
-	}
+		else
+			strcpy(objectcode,"\0");
+		fprintf(fp2,"%s\t%s\t%s\t%d\t%s\n",label,opcode,operand,locctr,objectcode);
+		fscanf(fp1,"%d%s%s%s",&locctr,label,opcode,operand);
+		}
+		
+		fprintf(fp2,"%s\t%s\t%s\t%d\n",label,opcode,operand,locctr);
+		fclose(fp1);
+		fclose(fp2);
+		fclose(fp3);
+		fclose(fp4);
+		
 }
-
